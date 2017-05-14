@@ -130,7 +130,7 @@ gulp.task('scripts', () =>
 // Render HTML using Nunjucks template engine
 gulp.task('nunjucks', () => {
   // Gets .html and .nunjucks files in pages
-  return gulp.src('app/pages/**/*.+(html|nunjucks)')
+  return gulp.src('app/pages/**/*.+(html|nunjucks|njk)')
     // Renders template with nunjucks
     .pipe($.nunjucksRender({
       path: ['app/templates']
@@ -183,7 +183,7 @@ gulp.task('serve', ['scripts', 'styles', 'nunjucks'], () => {
     port: 3000
   });
 
-  gulp.watch(['app/{pages,templates}/**/*.{nunjucks,html}'], ['nunjucks', reload]);
+  gulp.watch(['app/{pages,templates}/**/*.{nunjucks,html,njk}'], ['nunjucks']);
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['lint', 'scripts', reload]);
