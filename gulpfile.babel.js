@@ -33,6 +33,7 @@ import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import {output as pagespeed} from 'psi';
 import pkg from './package.json';
+import realFavicon from 'gulp-real-favicon';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -147,6 +148,11 @@ gulp.task('html', () => {
       searchPath: '{.tmp,app}',
       noAssets: true
     }))
+
+    // Favicon markups
+    .pipe($.if('*.html', realFavicon.injectFaviconMarkups(
+      JSON.parse(fs.readFileSync('favicon-data.json')).favicon.html_code,
+      { keep: 'link[rel="manifest"]' })))
 
     // Minify any HTML
     .pipe($.if('*.html', $.htmlmin({
@@ -268,4 +274,4 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
 
 // Load custom tasks from the `tasks` directory
 // Run: `npm install --save-dev require-dir` from the command-line
-// try { require('require-dir')('tasks'); } catch (err) { console.error(err); }
+try { require('require-dir')('tasks'); } catch (err) { console.error(err); }
