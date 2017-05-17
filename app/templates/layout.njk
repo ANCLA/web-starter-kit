@@ -57,7 +57,7 @@
   <body {%- block bodyclasses %} class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base"{% endblock %}>
     {% block body -%}
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      {% include 'partials/_header.nunjucks' %}
+      {% include 'partials/_header.njk' %}
       {% block main %}{% endblock main %}
     </div>
     {%- endblock body %}
